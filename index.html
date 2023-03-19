@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Primary Service Area for Castle Black Appraisal</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js"></script>
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1IjoibG9yZGFuZGhlYXJ0aCIsImEiOiJjbGU0emdva2MwODE4M3FvOGp5a3gwdGM4In0.NQ2fFvirWeRlFfxrMo4DAw';
+    const map = new mapboxgl.Map({
+        container: 'map',
+        // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+        style: 'mapbox://styles/mapbox/satellite-streets-v11',
+        zoom: 10,
+        center: [-96.824741,33.037593],
+        projection: 'globe'
+    });
+
+    map.on('load', () => {
+  // Set the default atmosphere style
+map.setFog({});
+//add geojson data for Richardson TX
+map.addSource('richardson', {'type': 'geojson',
+'data': 'data/richardson.geojson'})
+})
+
+
+map.addLayer({
+"id": 'richardson-fill',
+'type': 'fill',
+'source': 'richardson',
+'paint': {
+  'fill-color': [
+'match',
+['get', 'ZIP'],
+'75042', 
+'green',
+'75044',
+ 'purple',
+'75081', 'green',
+'75074', 'green',
+'75075', 'green',  
+'75080', 'red',
+'75082', 'green',
+'75094', 'green',
+'75048', 'green',
+'75081', 'green',
+]
+}
+})
+map.addLayer({
+"id": 'richardson-line',
+'type': 'line',
+'source': 'richardson',
+'paint': {
+  'line-color': 'white',
+  'line-width': 4,
+  'line-opacity': 0.7}
+
+
+
+
+</script>
+</body>
+</html>
